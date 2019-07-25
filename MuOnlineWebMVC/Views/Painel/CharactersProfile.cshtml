@@ -1,0 +1,114 @@
+﻿@model MuOnlineWebMVC.Models.ViewModels.PainelViewModels.CharactersProfileViewModels
+
+@{
+    ViewData["Title"] = "CharactersDetails";
+}
+
+<h2>CharactersDetails</h2>
+<hr />
+
+<input type="hidden" asp-for="AccountId" />
+
+
+    <dl class="dl-horizontal">
+        <dd>
+            <h4><a href="@Url.Action("CharactersProfile", "Painel", new { Name = @Model.Name })">@Model.Name</a></h4>
+            <a href="@Url.Action("CharactersProfile", "Painel", new { Name = @Model.Name })"><img src="~/Characters/@Model.Image" class="img-circle" height="150" width="150" /></a>
+            <hr />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CLevel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CLevel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelUpPoint)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LevelUpPoint)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Class)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Class)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Strength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Strength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dexterity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dexterity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vitality)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vitality)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Energy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Energy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Resets)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Resets)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ResetsWeek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ResetsWeek)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MrTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MrTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MrSemanal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MrSemanal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PkHeroTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PkHeroTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PkHeroSemanal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PkHeroSemanal)
+        </dd>
+    </dl>
+        <ul class="nav nav-pills nav-stacked">
+            <li href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</li>
+            <li href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</li>
+        </ul>
+
+
+
+
+<a asp-action="Index">Back to List</a>
+

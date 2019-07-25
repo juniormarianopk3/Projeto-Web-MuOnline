@@ -1,0 +1,60 @@
+﻿@model MuOnlineWebMVC.Models.AccountViewModels.RegisterMembInfoViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>MembInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" asp-antiforgery="true">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MembId" class="control-label">Login</label>
+                <input asp-for="MembId" class="form-control" />
+                <span asp-validation-for="MembId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MembPwd" class="control-label">Senha</label>
+                <input type="password" asp-for="MembPwd" class="form-control" />
+                <span asp-validation-for="MembPwd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MembName" class="control-label">Nome</label>
+                <input asp-for="MembName" class="form-control" />
+                <span asp-validation-for="MembName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MailAddr" class="control-label">Email</label>
+                <input asp-for="MailAddr" class="form-control" />
+                <span asp-validation-for="MailAddr" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SnoNumb" class="control-label">Personal Id</label>
+                <input asp-for="SnoNumb" class="form-control" />
+                <span asp-validation-for="SnoNumb" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,23 @@
+﻿@model MuOnlineWebMVC.Models.MembInfo
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Painel de Controle</h2>
+
+<div class="card" style="width: 30rem;">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Você possui <b>@Model.Gold</b> Gold(s)</li>
+        <li class="list-group-item">Conta de número : <b> @Model.MembGuid </b></li>
+        <li class="list-group-item">E-mail da conta : <b> @Model.MailAddr</b></li>
+    </ul>
+</div>
+<ul class="nav nav-pills">
+    <li>
+        <a asp-action="ToChangePassword" asp-route-id="@Model.MembGuid" class="btn btn-default">Mudar senha</a><br />
+        <a asp-action="ToChangeEmail" asp-route-id="@Model.MembGuid" class="btn btn-default">Mudar Email</a><br />
+        <a asp-action="Characters" class="btn btn-default">Meus Personagens</a>
+    </li>
+</ul>
+

@@ -1,0 +1,16 @@
+﻿@model MuOnlineWebMVC.Models.ViewModels.ErrorViewModel
+@{
+    ViewData["Title"] = "Erro inesperado.";
+}
+
+<h3 class="text-danger">@ViewData["Title"]</h3>
+<h5 class="text-danger">@Model.Message</h5>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+
