@@ -15,12 +15,7 @@ namespace MuOnlineWebMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public HomeController(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+       
         public IActionResult Index()
         {
             return View();
