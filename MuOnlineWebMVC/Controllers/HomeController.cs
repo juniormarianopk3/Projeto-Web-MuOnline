@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MuOnlineWebMVC.AutoMapper.Profiles;
 using MuOnlineWebMVC.Models;
 using MuOnlineWebMVC.Models.ViewModels;
@@ -16,7 +17,7 @@ namespace MuOnlineWebMVC.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public HomeController( ApplicationDbContext dbContext)
+        public HomeController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -25,11 +26,6 @@ namespace MuOnlineWebMVC.Controllers
             return View();
         }
 
-        public IActionResult RankingResets()
-        {
-            var character = _dbContext.Character.Where(p => p.Resets > 0);
-            return View(character);
-        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
