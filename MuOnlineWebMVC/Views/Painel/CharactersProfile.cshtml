@@ -102,10 +102,10 @@
             @Html.DisplayFor(model => model.PkHeroSemanal)
         </dd>
     </dl>
-        <ul class="nav nav-pills nav-stacked">
-            <li href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</li>
-            <li href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</li>
-        </ul>
+        <div class="nav nav-pills nav-stacked">
+            <a href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</a>
+            <a href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</a>
+        </div>
 
 
 

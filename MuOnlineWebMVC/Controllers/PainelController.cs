@@ -127,7 +127,7 @@ namespace MuOnlineWebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ImageUpload(CharactersViewModels model)
+        public async Task<IActionResult> ImageUpload(ImageUploadViewModels model)
         {
             var character = await _dbContext.Character.FirstOrDefaultAsync(p => p.Name == model.Name);
 

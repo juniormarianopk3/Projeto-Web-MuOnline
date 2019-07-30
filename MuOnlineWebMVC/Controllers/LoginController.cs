@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using MuOnlineWebMVC.Models.AccountViewModels;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using MuOnlineWebMVC.Models.ViewModels.AccountViewModels;
-using Microsoft.AspNetCore.Authorization;
 using MuOnlineWebMVC.Extensions.Alerts;
 using MuOnlineWebMVC.Models.ViewModels;
 using System.Diagnostics;

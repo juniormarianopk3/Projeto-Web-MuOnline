@@ -4,27 +4,27 @@
 <h2>Create</h2>
 <div class="row">
     <div class="col-md-4">
-
         <form method="post" enctype="multipart/form-data" asp-controller="Painel" asp-action="ImageUpload">
+            <input type="hidden" asp-for="Name" />
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
 
                 <input type="hidden" asp-for="AccountId" />
             </div>
-           
+
             <div class="form-group">
                 <h3>@Model.Name</h3>
                 <a href="@Url.Action("CharactersProfile", "Painel", new { Name = Model.Name })"><img src="~/Characters/@Model.Image" height="200" width="200" /></a>
-                    
+
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input type="file" asp-for="Image" accept=".jpg,.png,.gif"   class="form-control" />
+                <input type="file" asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
 
 
-            <input type="hidden" asp-for="Name" />
 
 
             <div class="form-group">
