@@ -12,6 +12,8 @@ using MuOnlineWebMVC.Models;
 using MuOnlineWebMVC.Models.ViewModels.PainelViewModels;
 using System.Net.Http.Headers;
 using MuOnlineWebMVC.Extensions.Alerts;
+using MuOnlineWebMVC.Models.ViewModels;
+using System.Diagnostics;
 
 namespace MuOnlineWebMVC.Controllers
 {
@@ -268,10 +270,29 @@ namespace MuOnlineWebMVC.Controllers
             var username = User.Identity.Name;
             var character = await _dbContext.Character.Where(p => p.AccountId == username).FirstOrDefaultAsync(p => p.Name == Name);
 
-            character.Image = "nophoto.jpg";
-            _dbContext.Update(character);
-            _dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(PainelController.Characters), "Painel").WithSuccess("Ok", "Imagem excluída com sucesso.");
+            if(character == null)
+            {
+                return RedirectToAction(nameof(Error), new { Message = "O Personagem não pertence a esta conta." });
+            }
+            if(ModelState.IsValid)
+            {
+                character.Image = "nophoto.jpg";
+                _dbContext.Update(character);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction(nameof(PainelController.Characters), "Painel").WithSuccess("Ok", "Imagem excluída com sucesso.");
+            }
+            return View();
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
         }
     }
 }
