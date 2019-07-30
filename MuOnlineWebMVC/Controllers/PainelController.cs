@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using MuOnlineWebMVC.Models;
 using MuOnlineWebMVC.Models.ViewModels.PainelViewModels;
 using System.Net.Http.Headers;
+using MuOnlineWebMVC.Extensions.Alerts;
 
 namespace MuOnlineWebMVC.Controllers
 {
@@ -135,8 +136,6 @@ namespace MuOnlineWebMVC.Controllers
             {
                 try
                 {
-
-
                     var newFileName = string.Empty;
 
                     if (HttpContext.Request.Form.Files != null)
@@ -177,7 +176,10 @@ namespace MuOnlineWebMVC.Controllers
                         }
 
                     }
+                    _dbContext.Update(character);
                     await _dbContext.SaveChangesAsync();
+                    return RedirectToAction(nameof(PainelController.Characters), "Painel").WithSuccess("Ok", "Imagem trocada com sucesso.");
+
                 }
 
                 catch (Exception e)
@@ -185,9 +187,9 @@ namespace MuOnlineWebMVC.Controllers
                     ModelState.AddModelError("", "Erro ocorrido : \n" + e.Message);
                 }
 
-
             }
-            return RedirectToAction(nameof(PainelController.Characters), "Painel");
+            return View(model);
+
         }
 
         public async Task<IActionResult> ToChangeName(string Name)
@@ -260,6 +262,16 @@ namespace MuOnlineWebMVC.Controllers
                 }
             }
             return View(viewModel);
+        }
+        public async Task<IActionResult> DeletePhoto(string Name)
+        {
+            var username = User.Identity.Name;
+            var character = await _dbContext.Character.Where(p => p.AccountId == username).FirstOrDefaultAsync(p => p.Name == Name);
+
+            character.Image = "nophoto.jpg";
+            _dbContext.Update(character);
+            _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(PainelController.Characters), "Painel").WithSuccess("Ok", "Imagem excluída com sucesso.");
         }
     }
 }

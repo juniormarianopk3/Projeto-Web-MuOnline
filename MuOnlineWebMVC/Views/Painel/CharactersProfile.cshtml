@@ -102,10 +102,14 @@
             @Html.DisplayFor(model => model.PkHeroSemanal)
         </dd>
     </dl>
-        <div class="nav nav-pills nav-stacked">
-            <a href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</a>
-            <a href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</a>
-        </div>
+    <div class="nav nav-pills nav-stacked">
+        <a href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</a>
+        <a href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</a>
+        <form asp-area="" asp-controller="Login" asp-action="Logout" method="post">
+            <a href="@Url.Action("DeletePhoto", "Painel", new { Name = Model.Name })" class="btn btn-default">Excluir Foto</a>
+        </form>
+
+    </div>
 
 
 

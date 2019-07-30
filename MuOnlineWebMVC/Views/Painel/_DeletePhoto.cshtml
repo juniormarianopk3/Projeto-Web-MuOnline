@@ -1,0 +1,4 @@
+﻿@model MuOnlineWebMVC.Models.Character
+<form asp-area="" asp-controller="Login" asp-action="Logout" method="post">
+    <a href="@Url.Action("DeletePhoto", "Painel", new { Name = Model.Name })" class="btn btn-default">Excluir Foto</a>
+</form>

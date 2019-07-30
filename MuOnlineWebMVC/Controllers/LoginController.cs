@@ -16,7 +16,6 @@ using System.Diagnostics;
 
 namespace MuOnlineWebMVC.Controllers
 {
-
     public class LoginController : Controller
     {
         ApplicationDbContext _dbContext { get; set; }
