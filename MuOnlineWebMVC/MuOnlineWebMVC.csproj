@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Shared\Index.cshtml" />
+    <Content Remove="Views\Shared\_RankingMasterResets.cshtml" />
     <Content Remove="wwwroot\Characters\57c30474-dad4-4db8-ac00-5fe5d24f975a.pdf" />
   </ItemGroup>
 
