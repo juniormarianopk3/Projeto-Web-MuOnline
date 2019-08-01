@@ -10,10 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MuOnlineWebMVC.Models;
 using MuOnlineWebMVC.Models.ViewModels.PainelViewModels;
-using System.Net.Http.Headers;
 using MuOnlineWebMVC.Extensions.Alerts;
 using MuOnlineWebMVC.Models.ViewModels;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace MuOnlineWebMVC.Controllers
 {
@@ -132,6 +133,7 @@ namespace MuOnlineWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ImageUpload(ImageUploadViewModels model)
         {
+
             var character = await _dbContext.Character.FirstOrDefaultAsync(p => p.Name == model.Name);
 
             if (ModelState.IsValid)
@@ -164,9 +166,9 @@ namespace MuOnlineWebMVC.Controllers
                                 newFileName = myUniqueFileName + FileExtension;
 
                                 // Combines two strings into a path.
-                                fileName = Path.Combine(_hosting.WebRootPath, "Characters") + $@"\{newFileName}";
+                                fileName = Path.Combine(_hosting.WebRootPath, "photos") + $@"\{newFileName}";
 
-                                // if you want to store path of folder in database
+                                //if you want to store path of folder in database
                                 PathDB = "Characters/" + newFileName;
                                 character.Image = newFileName;
                                 using (FileStream fs = System.IO.File.Create(fileName))
@@ -218,7 +220,6 @@ namespace MuOnlineWebMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                _dbContext.Update(character);
                 await _dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(PainelController.Index), "Painel");
             }
