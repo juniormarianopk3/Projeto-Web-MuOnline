@@ -38,7 +38,7 @@ namespace MuOnlineWebMVC
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            }).AddCookie(options => { options.LoginPath = "/Login"; });
+            }).AddCookie(options => { options.LoginPath = "/Home"; });
 
             //AutoMapping.RegisterMappings();
             // Add application services.
@@ -54,7 +54,7 @@ namespace MuOnlineWebMVC
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AuthorizeFolder("/");
-                options.Conventions.AllowAnonymousToPage("/Login");
+                options.Conventions.AllowAnonymousToPage("/Home");
             }).AddFluentValidation(fvc =>
                             fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
           

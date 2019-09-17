@@ -1,0 +1,81 @@
+﻿
+@model PaginatedList<MuOnlineWebMVC.Models.Character>
+
+@{
+    int count = 0;
+    ViewData["Title"] = "Mudar senha";
+
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4> Ranking</h4>
+<hr />
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <select id="filtroAtual" name="filtroAtual">
+                <option value="Resets">Resets</option>
+                <option value="MasterReset">Master Reset</option>
+                <option value="PlayerKiller">Player Killer</option>
+            </select>
+            <input type="submit" value="OK" />
+        </p>
+    </div>
+</form><div align="center">
+    @foreach (var item in Model)
+    {
+        count++;
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="list-group-item-success">
+                <a href="@Url.Action("CharactersProfile", "Painel", new { Name = item.Name })"> @count.ToString()º - @item.Name </a>
+            </div>
+            <div class="list-group-item">
+                <a href="@Url.Action("CharactersProfile", "Painel", new { Name = item.Name })">
+                    <img src="~/photos/@item.Image" class="img-rounded" height="150" width="150" />
+                </a>
+            </div>
+           
+
+            <div class="list-group-item">
+                @if (ViewData["filtroAtual"].ToString().Equals("Resets"))
+                {
+                    <small><strong>@item.Resets</strong> Resets</small>
+                }
+                @if (ViewData["filtroAtual"].ToString().Equals("MasterReset"))
+                {
+                    <small><strong>@item.MrTotal</strong> Master Resets</small>
+                }
+
+                @if (ViewData["filtroAtual"].ToString().Equals("PlayerKiller"))
+                {
+                    <small><strong>@item.PkHeroTotal</strong> Assasinatos</small>
+                }
+
+
+            </div><br />
+        </div>
+
+    }
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="Index"
+       asp-route-ordem="@ViewData["ordemAtual"]"
+       asp-route-pagina="@(Model.PageIndex - 1)"
+       asp-route-filtroAtual="@ViewData["filtroAtual"]"
+       class="btn btn-default @prevDisabled">
+        Anterior
+    </a>
+    <a asp-action="Index"
+       asp-route-ordem="@ViewData["ordemAtual"]"
+       asp-route-pagina="@(Model.PageIndex + 1)"
+       asp-route-filtroAtual="@ViewData["filtroAtual"]"
+       class="btn btn-default @nextDisabled">
+        Próximo
+    </a>
+</div>

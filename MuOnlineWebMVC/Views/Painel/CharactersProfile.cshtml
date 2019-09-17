@@ -8,105 +8,96 @@
 <hr />
 
 <input type="hidden" asp-for="AccountId" />
-
-
-    <dl class="dl-horizontal">
-        <dd>
-            <h4><a href="@Url.Action("CharactersProfile", "Painel", new { Name = @Model.Name })">@Model.Name</a></h4>
-            <a href="@Url.Action("CharactersProfile", "Painel", new { Name = @Model.Name })"><img src="~/photos/@Model.Image" class="img-circle" height="150" width="150" /></a>
-            <hr />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CLevel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CLevel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LevelUpPoint)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LevelUpPoint)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Experience)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Experience)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Strength)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Strength)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Dexterity)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Dexterity)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Vitality)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Vitality)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Energy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Energy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Resets)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Resets)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ResetsWeek)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ResetsWeek)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MrTotal)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MrTotal)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MrSemanal)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MrSemanal)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PkHeroTotal)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PkHeroTotal)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PkHeroSemanal)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PkHeroSemanal)
-        </dd>
-    </dl>
-    <div class="nav nav-pills nav-stacked">
-        <a href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</a>
-        <a href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</a>
-        <a href="@Url.Action("DeletePhoto", "Painel", new { Name = Model.Name })" class="btn btn-default">Excluir Foto</a>
+<div class="col-md-12"> 
+    <div class="tab-pane" align="center">
+        <h3><a href="@Url.Action("CharactersProfile", "Painel", new { Name = @Model.Name })">@Model.Name</a></h3>
+        <a href="@Url.Action("CharactersProfile", "Painel", new { Name = @Model.Name })"><img src="~/photos/@Model.Image" class="img-rounded" height="150" wih="150" /></a>
+        <hr />
     </div>
+    
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="@Url.Action("ImageUpload", "Painel", new { Name = Model.Name })" class="btn btn-default">Trocar Foto</a></li>
+            <li><a href="@Url.Action("ToChangeName", "Painel", new { Name = Model.Name })" class="btn btn-default">Mudar Nome</a></li>
+            <li><a href="@Url.Action("DeletePhoto", "Painel", new { Name = Model.Name })" class="btn btn-default">Excluir Foto</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <label asp-for="CLevel">Level : </label>
+                @Model.CLevel
+            </li>
+
+            <li class="list-group-item">
+                <label asp-for="Class">Classe : </label>
+                @Model.Class
+            </li>
+
+            <li class="list-group-item">
+                <label asp-for="Experience">EXP : </label>
+                @Model.Experience
+            </li>
+
+            <li class="list-group-item">
+                <label asp-for="Strength">Força : </label>
+                @Model.Strength
+            </li>
+            <li class="list-group-item">
+                <label asp-for="Dexterity">Agilidade : </label>
+                @Model.Dexterity
+            </li>
+            <li class="list-group-item">
+                <label asp-for="Vitality">Vitalidade : </label>
+                @Model.Vitality
+            </li>
+
+            <li class="list-group-item">
+                <label asp-for="Energy">Energia : </label>
+                @Model.Energy
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <label asp-for="LevelUpPoint">Pontos á distribuir : </label>
+                @Model.LevelUpPoint
+            </li>
+            <li class="list-group-item">
+                <label asp-for="Resets">Resets : </label>
+                @Model.Resets
+            </li>
+            <li class="list-group-item">
+                <label asp-for="ResetsWeek">Resets Semanais : </label>
+                @Model.ResetsWeek
+
+            </li>
+            <li class="list-group-item">
+                <label asp-for="MrTotal">Master Resets : </label>
+                @Model.MrTotal
+            </li>
+            <li class="list-group-item">
+                <label asp-for="MrSemanal">Master Resets Semenais : </label>
+                @Model.MrSemanal
+            </li>
+            <li class="list-group-item">
+                <label asp-for="PkHeroTotal">Killers : </label>
+                @Model.PkHeroTotal
+            </li>
+            <li class="list-group-item">
+                <label asp-for="PkHeroSemanal">Killers Semanais : </label>
+                @Model.PkHeroSemanal
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+
 
 
 

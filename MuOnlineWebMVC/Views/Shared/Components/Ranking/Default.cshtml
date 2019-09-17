@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Character>
+
+@{
+    int count = 0;
+    
+}
+<div align="center">
+            @foreach (var item in Model)
+            {
+                count++;
+                <div class="col-lg-3 col-md-6 col-sm-12">
+
+                    <div class="list-group-item-success">
+                        <a href="@Url.Action("CharactersProfile", "Painel", new { Name = item.Name })"> @count.ToString() - @item.Name </a>
+                    </div>
+                    <div class="list-group-item">
+                        <a href="@Url.Action("CharactersProfile", "Painel", new { Name = item.Name })">
+                            <img src="~/photos/@item.Image" class="img-rounded" height="150" width="150" />
+                        </a>
+                    </div>
+                    <div class="list-group-item">
+                        <small><strong>@item.Resets</strong> Resets</small>
+                    </div><br />
+                </div>
+
+            }
+    
+</div>
+
+
+
+
+

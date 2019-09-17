@@ -113,7 +113,6 @@ namespace MuOnlineWebMVC.Controllers
 
         public async Task<IActionResult> ImageUpload(string Name)
         {
-
             var username = User.Identity.Name;
             var character = await _dbContext.Character.Where(p => p.AccountId == username)
                 .FirstOrDefaultAsync(x => x.Name == Name);
@@ -136,66 +135,66 @@ namespace MuOnlineWebMVC.Controllers
 
             var character = await _dbContext.Character.FirstOrDefaultAsync(p => p.Name == model.Name);
 
-            if (ModelState.IsValid)
+            var newFileName = string.Empty;
+
+            if (HttpContext.Request.Form.Files != null)
             {
-                try
+                var fileName = string.Empty;
+                var files = HttpContext.Request.Form.Files;
+
+                foreach (var file in files)
                 {
-                    var newFileName = string.Empty;
-
-                    if (HttpContext.Request.Form.Files != null)
+                    if (file.Length > 0)
                     {
-                        var fileName = string.Empty;
-                        string PathDB = string.Empty;
+                        //Getting FileName
+                        fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
-                        var files = HttpContext.Request.Form.Files;
+                        //Assigning Unique Filename (Guid)
+                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
 
-                        foreach (var file in files)
-                        {
-                            if (file.Length > 0)
-                            {
-                                //Getting FileName
-                                fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                        //Getting file Extension
+                        var FileExtension = Path.GetExtension(fileName);
 
-                                //Assigning Unique Filename (Guid)
-                                var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+                        // concating  FileName + FileExtension
+                        newFileName = myUniqueFileName + FileExtension;
+                        character.Image = newFileName;
 
-                                //Getting file Extension
-                                var FileExtension = Path.GetExtension(fileName);
-
-                                // concating  FileName + FileExtension
-                                newFileName = myUniqueFileName + FileExtension;
-
-                                // Combines two strings into a path.
-                                fileName = Path.Combine(_hosting.WebRootPath, "photos") + $@"\{newFileName}";
-
-                                //if you want to store path of folder in database
-                                PathDB = "Characters/" + newFileName;
-                                character.Image = newFileName;
-                                using (FileStream fs = System.IO.File.Create(fileName))
-                                {
-                                    file.CopyTo(fs);
-                                    fs.Flush();
-                                }
-                            }
+                        string[] contentTypes = new string[] { ".jpg", ".png" };
+                        if (!contentTypes.Contains(FileExtension))
+                        {                           
+                            return RedirectToAction("ImageUpload", "Painel", new { Name = model.Name }).WithDanger("Error","Imagem inválida");
                         }
 
+                        // Combines two strings into a path.
+                        fileName = Path.Combine(_hosting.WebRootPath, "photos") + $@"\{newFileName}";
+
+                        //if you want to store path of folder in database
+                        using (FileStream fs = System.IO.File.Create(fileName))
+                        {
+                            file.CopyTo(fs);
+                            fs.Flush();
+                        }
                     }
-                    _dbContext.Update(character);
-                    await _dbContext.SaveChangesAsync();
-                    return RedirectToAction(nameof(PainelController.Characters), "Painel").WithSuccess("Ok", "Imagem trocada com sucesso.");
-
                 }
-
-                catch (Exception e)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Erro ocorrido : \n" + e.Message);
+                    try
+                    {
+                        await _dbContext.SaveChangesAsync();
+                        return RedirectToAction(nameof(PainelController.Characters), "Painel").WithSuccess("Ok", "Imagem trocada com sucesso.");
+                    }
+                    catch (Exception e)
+                    {
+                        ModelState.AddModelError("", "Erro ocorrido : \n" + e.Message);
+                    }
                 }
-
             }
-            return View(model);
+           
 
+            return View(model);
         }
 
+       
         public async Task<IActionResult> ToChangeName(string Name)
         {
             var username = User.Identity.Name;
@@ -271,11 +270,11 @@ namespace MuOnlineWebMVC.Controllers
             var username = User.Identity.Name;
             var character = await _dbContext.Character.Where(p => p.AccountId == username).FirstOrDefaultAsync(p => p.Name == Name);
 
-            if(character == null)
+            if (character == null)
             {
                 return RedirectToAction(nameof(Error), new { Message = "O Personagem não pertence a esta conta." });
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 character.Image = "nophoto.jpg";
                 _dbContext.Update(character);

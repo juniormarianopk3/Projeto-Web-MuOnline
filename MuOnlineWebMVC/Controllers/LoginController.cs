@@ -19,43 +19,44 @@ namespace MuOnlineWebMVC.Controllers
     public class LoginController : Controller
     {
         ApplicationDbContext _dbContext { get; set; }
+        public static string erro = "false";
+        public static int countErro = 0;
         public LoginController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index(string returnUrl)
+        public IActionResult _signUp()
         {
-            var username = User.Identity.IsAuthenticated;
-
-            if (username == true)
-                return RedirectToAction(nameof(Error), new { Message = "Você tem que estar deslogado para executar essa operação" });
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            if(countErro == 2) { countErro = 0; erro = "false"; }
+            ViewData["Erro"] = erro;
+            countErro++;
+            return PartialView();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> _signUp(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
-            
+            erro = "false";
             var logar = await _dbContext.MembInfo.Where(p => p.MembId.Equals(model.UserName)).Where(p => p.MembPwd.Equals(model.Password)).FirstOrDefaultAsync();
 
             if (logar == null)
             {
-                ModelState.AddModelError("", "Login ou senha inválidos.");
-                return View();
-            }
+                countErro = 1;
+                erro = "Login ou senha inválidos.";
+                return RedirectToAction("Index", "Home");
+            }           
+            
             if (ModelState.IsValid)
             {
                 try
                 {
+                    erro = "false";
                     var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, model.UserName));
                     identity.AddClaim(new Claim(ClaimTypes.Name, model.UserName));
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                    return RedirectToAction(nameof(PainelController.Index), "Painel");
+                    return RedirectToAction("Index","Painel");
                 }
                 
                 catch(Exception e)
@@ -70,6 +71,7 @@ namespace MuOnlineWebMVC.Controllers
         public IActionResult Register()
         {
             var username = User.Identity.Name;
+
             if (username != null)
                 return RedirectToAction(nameof(Error), new {Message = "Você precisa estar deslogado para executar essa operação."} );
 
@@ -92,7 +94,7 @@ namespace MuOnlineWebMVC.Controllers
                     _dbContext.Add(membInfo);
                     await _dbContext.SaveChangesAsync();
                     ViewBag.Sucess = "Cadastro realizado com sucesso.";
-                    return RedirectToAction(nameof(Index)).WithSuccess("Seja bem-vindo!","Cadastro realizado com sucesso!");
+                    return RedirectToAction(nameof(HomeController.Index)).WithSuccess("Seja bem-vindo!","Cadastro realizado com sucesso!");
                 }
 
                 catch (Exception e)
